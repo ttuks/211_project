@@ -1,4 +1,4 @@
-class course_assignment:
+class CourseAssignment:
     def __init__(self, course,title,due,weight,status):
         self.course = course
         self.title = title
