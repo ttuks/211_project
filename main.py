@@ -1,3 +1,4 @@
+from tkinter import ttk
 import tkinter as tk
 
 class Main:
@@ -17,7 +18,11 @@ class Main:
         edit.grid(padx = 3, pady = 3, row = 0, column=1)
         delete = tk.Button(tools, text = "Delete")
         delete.grid(padx = 3, pady = 3, row = 0, column=2)
-
+        
+        #date entry, change 'window' later to whatever frame it's inside
+        month = ttk.Combobox(window, values = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"], state = "readonly")
+        day = ttk.Combobox(window, values = range(1, 32), state = "readonly")
+        
 if __name__ == "__main__":
     window = tk.Tk()
     app = Main(window)
