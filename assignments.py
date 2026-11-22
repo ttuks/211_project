@@ -14,8 +14,22 @@ class CourseAssignment:
 
     def inputcheck(self):
         error = []
-        if self.course.strip() == "":
-            error.append("Missing course information")
+        if self.title.strip() == "":
+            error.append("Required title entry")
+        
+        if len(self.course) != 6:
+            error.append("Incorrect course code")
+        
+        try:
+            float(self.weight)
+        except ValueError:
+            error.append("Not a number")
+        else:
+            if float(self.weight) < 0 or float(self.weight) > 100:
+                error.append("Invalid weight")
+                
+        
+        return error
 
     def remaining(self):
         remainingdate = (date.fromisoformat(self.due) - date.today()).days

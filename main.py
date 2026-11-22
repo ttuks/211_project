@@ -1,5 +1,8 @@
 from tkinter import ttk
 import tkinter as tk
+from tkcalendar import DateEntry
+
+##ISOFORMAT == YEAR-MONTH-DATE
 
 class Main:
     def __init__(self, window):
@@ -12,16 +15,19 @@ class Main:
         tools.pack(side = "top", fill = "x")
 
         #tools buttons
-        add = tk.Button(tools, text = "Add")
-        add.grid(padx = 3, pady = 3)
-        edit = tk.Button(tools, text = "Edit")
-        edit.grid(padx = 3, pady = 3, row = 0, column=1)
-        delete = tk.Button(tools, text = "Delete")
-        delete.grid(padx = 3, pady = 3, row = 0, column=2)
+        # add = tk.Button(tools, text = "Add")
+        # add.grid(padx = 3, pady = 3)
+        # edit = tk.Button(tools, text = "Edit")
+        # edit.grid(padx = 3, pady = 3, row = 0, column=1)
+        # delete = tk.Button(tools, text = "Delete")
+        # delete.grid(padx = 3, pady = 3, row = 0, column=2)
         
-        #date entry, change 'window' later to whatever frame it's inside
-        month = ttk.Combobox(window, values = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"], state = "readonly")
-        day = ttk.Combobox(window, values = range(1, 32), state = "readonly")
+       #using tkcalendar
+        self.duedate = DateEntry(window, date_pattern = "y-mm-dd", state = "readonly" )
+        self.duedate.pack(pady = 5)
+        
+    def printdate(self):
+        print(self.duedate.get_date().isoformat())
         
 if __name__ == "__main__":
     window = tk.Tk()

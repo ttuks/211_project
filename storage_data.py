@@ -1,5 +1,5 @@
 import shelve
-from assignments_placeholder import CourseAssignment
+from assignments import CourseAssignment
 
 class StorageData:
     def __init__(self):
