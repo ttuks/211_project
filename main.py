@@ -44,14 +44,28 @@ class Main:
         scrollbar.grid(row = 0, column = 1, sticky = "nsw")
         list_frame. rowconfigure(0, weight = 1)
         list_frame. columnconfigure(0, weight = 1)
+
+        #left and right side of the bottom frame
+        self.show_done = tk.BooleanVar()
+        bottom_frame = tk.Frame(self.window)
+        bottom_frame.pack(side = "bottom", fill = "x")
+        show = tk.Checkbutton(bottom_frame, text = "Show All", variable = self.show_done, command = self.refresh)
+        show.pack(side = "right", padx = 3, pady = 3)
+        self.status_label = tk.Label(bottom_frame, text = "")
+        self.status_label.pack(side = "left", padx = 3, pady = 3)
         self.refresh()
 
     def refresh(self):
+        self.assignments.sort(key = lambda a: a.due)
         for row in self.tree.get_children():
             self.tree.delete(row)
+        count = 0
         for i, a in enumerate(self.assignments):
+            if a.status == "Done" and self.show_done.get() == False:
+                continue
             self.tree.insert("", "end",iid=str(i), text=a.course, values=(a.title, a.due, a.weight, a.status))
-
+            count = count + 1
+        self.status_label.config(text = "Showing " +str(count) + " of " + str(len(self.assignments)) + " Assignments")
 
 
 
