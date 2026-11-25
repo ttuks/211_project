@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from storage_data import StorageData
 from tkinter import messagebox
+from assignments_placeholder import CourseAssignment
 
 class Main:
     def __init__(self, window):
@@ -14,11 +15,11 @@ class Main:
         tools.pack(side = "top", fill = "x")
 
         # tools buttons
-        add = tk.Button(tools, text="Add")
+        add = tk.Button(tools, text="Add", command = self.add)
         add.grid(padx=3, pady=3)
-        edit = tk.Button(tools, text="Edit")
+        edit = tk.Button(tools, text="Edit", command = self.edit)
         edit.grid(padx=3, pady=3, row=0, column=1)
-        delete = tk.Button(tools, text="Delete")
+        delete = tk.Button(tools, text="Delete", command = self.delete)
         delete.grid(padx=3, pady=3, row=0, column=2)
 
         self.storage = StorageData()
@@ -67,6 +68,49 @@ class Main:
             self.tree.insert("", "end",iid=str(i), text=a.course, values=(a.title, a.due, a.weight, a.status))
             count = count + 1
         self.status_label.config(text = "Showing " +str(count) + " of " + str(len(self.assignments)) + " Assignments")
+
+    def get_selected(self):
+        picked = self.tree.selection()
+        if len(picked) == 0:
+            messagebox.showinfo("No assignment clicked", "Click an assignment first.")
+            return None
+        return int(picked[0])
+    def add(self):
+        self.open_form(None, None)
+    def edit(self):
+        i = self.get_selected()
+        if i != None:
+            self.open_form(self.assignments[i], i)
+    def delete(self):
+        i = self.get_selected()
+        if i == None:
+            return
+        a = self.assignments[i]
+        answer = messagebox.askyesno("Delete assignment", "Delete " + a.course + " " + a.title + "?\nThis cannot be undone.")
+        if answer:
+            del self.assignments[i]
+            self.storage.save(self.assignments)
+            self.refresh()
+
+    def open_form(self, a, index):
+        # TODO: Joo Huen's part should be inserted
+        if a == None:
+            test = CourseAssignment("TST101", "Test assignment", "2026-12-12", 5, "Not Started")
+            self.form_saved(test, None)
+        else:
+            a.status = "Done"
+            self.form_saved(a, index)
+
+    def form_saved(self, a, index):
+        if index == None:
+            self.assignments.append(a)
+        else:
+            self.assignments[index] = a
+        self.storage.save(self.assignments)
+        self.refresh()
+
+
+
 
 
 
