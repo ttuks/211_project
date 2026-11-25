@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from storage_data import StorageData
 from tkinter import messagebox
-from assignments_placeholder import CourseAssignment
+from assignments import CourseAssignment
 
 class Main:
     def __init__(self, window):

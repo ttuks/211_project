@@ -50,9 +50,9 @@ class StorageData:
                ["WRI293", "Midterm Visual Based", "2026-10-14", 15, "Done"],
                ["WRI293", "Everyday Critique1", "2026-09-30", 10, "Done"],
                ["WRI293", "Everyday Critique2", "2026-11-09", 10, "Done"],]
-        assignments_placeholder = []
+        assignments = []
         for d in data:
-            assignments_placeholder.append(CourseAssignment(d[0], d[1], d[2], d[3], d[4]))
-        return assignments_placeholder
+            assignments.append(CourseAssignment(d[0], d[1], d[2], d[3], d[4]))
+        return assignments
 
 
